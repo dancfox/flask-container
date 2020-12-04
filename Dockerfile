@@ -39,10 +39,9 @@ RUN mkdir -p ${FUNCTION_DIR}
 COPY app/* ${FUNCTION_DIR}
 RUN chmod +x ${FUNCTION_DIR}/run.sh
 # Install the function's dependencies
-RUN aws s3 cp s3://aws-lambda-runtime-clients/python/awslambdaruntimeclient-0.0.1.tar.gz awslambdaruntimeclient.tar.gz && \
-python${RUNTIME_VERSION} -m pip install \
-awslambdaruntimeclient.tar.gz \
---target ${FUNCTION_DIR}
+RUN pip install \
+    --target ${FUNCTION_DIR} \
+        awslambdaric
 
 # Stage 3 - Install httpd
 # Grab a fresh copy of the Python image
