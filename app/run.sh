@@ -3,7 +3,7 @@
 echo "Starting initial load..."
 if [ -z ${AWS_LAMBDA_RUNTIME_API} ]; then 
     echo "Running NOT IN Lambda execution environment" 
-    echo "Executing other deployment specifc initialization code ..."
+    echo "Executing non-Lambda deployment specifc initialization code ..."
     # ECS/EKS/etc.
     gunicorn --bind 0.0.0.0:8000 application:app
 else 
@@ -11,5 +11,5 @@ else
     echo "Executing Lambda deployment specific initialization code ..."
     gunicorn --bind 0.0.0.0:8000 --daemon application:app 
     # Start lambda runtime client
-    /usr/local/bin/python -m awslambdaruntimeclient lambda.handler
+    /usr/local/bin/python -m awslambdaric lambda.handler
 fi
